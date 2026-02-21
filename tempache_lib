@@ -1189,45 +1189,45 @@ function OrionLib:MakeWindow(WindowConfig)
 	local minimized = false
 	
 	AddConnection(DragPoint.InputBegan, function(input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			local cctime2 = tick()
-			local timediff = cctime2 - lctime
-			
-			if timediff <= dctime and minimized then
-				mouse1release()
-				local screenSize = workspace.CurrentCamera.ViewportSize
-				local windowSize = MainWindow.AbsoluteSize
-				
-				local xPos = (screenSize.X - windowSize.X) / 2
-				local yPos = -55
-				
-				local tposs = UDim2.new(0, xPos, 0, yPos)
-				local crposs = MainWindow.Position
-				
-				local ds = math.sqrt(
-					math.pow(crposs.X.Offset - xPos, 2) + 
-					math.pow(crposs.Y.Offset - yPos, 2)
-				)
-				
-				local mdss = math.sqrt(screenSize.X^2 + screenSize.Y^2)
-				local ndss = math.clamp(ds / mdss, 0, 1)
-				local ttime = 0.5 + (ndss * 1.5)
-				
-				local tinfo = TweenInfo.new(
-					ttime,
-					Enum.EasingStyle.Quint,
-					Enum.EasingDirection.Out
-				)
-				
-				local tween = vgs.TS:Create(MainWindow, tinfo, {Position = tposs})
-				tween:Play()
-				
-				lctime = 0
-			else
-				lctime = cctime2
-			end
-		end
-	end)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        local cctime2 = tick()
+        local timediff = cctime2 - lctime
+        
+        if timediff <= dctime and minimized then
+            mouse1release()
+            local screenSize = workspace.CurrentCamera.ViewportSize
+            local windowSize = MainWindow.AbsoluteSize
+            
+            local xPos = (screenSize.X - windowSize.X) / 2
+            local yPos = -55
+            
+            local tp0ss = UDim2.new(0, xPos, 0, yPos)
+            local cr0ss = MainWindow.Position
+            
+            local ds = math.sqrt(
+                math.pow(cr0ss.X.Offset - xPos, 2) +
+                math.pow(cr0ss.Y.Offset - yPos, 2)
+            )
+            
+            local mdss = math.sqrt(screenSize.X^2 + screenSize.Y^2)
+            local ndss = math.clamp(ds / mdss, 0, 1)
+            local time = 0.5 + (ndss * 1.5)
+            
+            local tinfo = TweenInfo.new(
+                time,
+                Enum.EasingStyle.Quint,
+                Enum.EasingDirection.Out
+            )
+            
+            local tween = vgs.TS:Create(MainWindow, tinfo, {Position = tp0ss})
+            tween:Play()
+            
+            lctime = 0
+        else
+            lctime = cctime2
+        end
+    end
+end)
 	
 	if WindowConfig.ShowIcon then
 		WindowName.Position = UDim2.new(0, 45, 0, -18)
