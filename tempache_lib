@@ -1098,136 +1098,77 @@ function OrionLib:MakeWindow(WindowConfig)
 	}), "Stroke")
 
 	local MainWindow = AddThemeObject(SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 8), {
-		Parent = Orion,
-		Position = UDim2.new(0.5, -275, 0.5, -150),
-		Size = UDim2.new(0, 550, 0, 300),
-		ClipsDescendants = true
-	}), {
-		SetChildren(SetProps(MakeElement("TFrame"), {
-			Size = UDim2.new(1, 0, 0, 40),
-			Name = "TopBar"
-		}), {
-			WindowName,
-			WindowTopBarLine,
-			AddThemeObject(SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 4), {
-				Size = UDim2.new(0, 60, 0, 24),
-				Position = UDim2.new(1, -70, 0, 8)
-			}), {
-				AddThemeObject(MakeElement("Stroke", Color3.fromRGB(80, 80, 80), 1), "Stroke"),
-				AddThemeObject(SetProps(MakeElement("Frame"), {
-					Size = UDim2.new(0, 1, 1, 0),
-					Position = UDim2.new(0.5, 0, 0, 0),
-					BackgroundColor3 = Color3.fromRGB(80, 80, 80)
-				}), "Stroke"), 
-				CloseBtn,
-				MinimizeBtn
-			}), "Second"), 
-		}),
-		DragPoint,
-		WindowStuff
-	}), "Main")
-    MainWindow.Active = true
+    Parent = Orion,
+    Position = UDim2.new(0.5, -275, 0.5, -150),
+    Size = UDim2.new(0, 550, 0, 300),
+    ClipsDescendants = true
+}), {
+    SetChildren(SetProps(MakeElement("TFrame"), {
+        Size = UDim2.new(1, 0, 0, 40),
+        Name = "TopBar"
+    }), {
+        WindowName,
+        WindowTopBarLine,
+        AddThemeObject(SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 4), {
+            Size = UDim2.new(0, 60, 0, 24),
+            Position = UDim2.new(1, -70, 0, 8)
+        }), {
+            AddThemeObject(MakeElement("Stroke", Color3.fromRGB(80, 80, 80), 1), "Stroke"),
+            AddThemeObject(SetProps(MakeElement("Frame"), {
+                Size = UDim2.new(0, 1, 1, 0),
+                Position = UDim2.new(0.5, 0, 0, 0),
+                BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+            }), "Stroke"), 
+            CloseBtn,
+            MinimizeBtn
+        }), "Second"), 
+    }),
+    DragPoint,
+    WindowStuff
+}), "Main")
 
-	resizebtt.Size = UDim2.new(0, 14, 0, 14)
-	resizebtt.Position = UDim2.new(1, -14, 1, -14)
-	resizebtt.BorderSizePixel = 0
-	resizebtt.Parent = MainWindow
-	resizebtt.Visible = true
-	resizebtt.AnchorPoint = Vector2.new(0.1, 0.1)
-	resizebtt.BackgroundTransparency = 0
-	resizebtt.ClipsDescendants = true
-	
-	local UICorner = Instance.new("UICorner")
-	UICorner.CornerRadius = UDim.new(0.5, 0)
-	UICorner.Parent = resizebtt
-
-	resizebtt.BackgroundColor3 = OrionLib.Themes[OrionLib.SelectedTheme].Main
-
-	local drgg = false
-	local mspos
-	local nresize = 0
-	local default = UDim2.new(0, 550, 0, 300)
-
-	resizebtt.InputBegan:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			local cctime = tick()
-	
-			if cctime - nresize <= 0.5 then
-				local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
-				local tween = vgs.TS:Create(MainWindow, tweenInfo, { Size = default})
-				tween:Play()
-				drgg = false 
-			else
-				drgg = true
-				mspos = input.Position
-			end
-	
-			nresize = cctime
-		end
-	end)
-	
-	vgs.UIS.InputChanged:Connect(function(input)
-		if drgg and input.UserInputType == Enum.UserInputType.MouseMovement then
-			local delta = input.Position - mspos
-			mspos = input.Position
-	
-			local newWidth = math.max(350, MainWindow.Size.X.Offset + delta.X)
-			local newHeight = math.max(250, MainWindow.Size.Y.Offset + delta.Y)
-	
-			MainWindow.Size = UDim2.new(0, newWidth, 0, newHeight)
-		end
-	end)
-	
-	vgs.UIS.InputEnded:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			drgg = false
-		end
-	end)
-	
-	local lctime = 0
-	local dctime = 0.15
-	local minimized = false
-	
-	AddConnection(DragPoint.InputBegan, function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        local cctime2 = tick()
-        local timediff = cctime2 - lctime
-        
-        if timediff <= dctime and minimized then
-            mouse1release()
-            local screenSize = workspace.CurrentCamera.ViewportSize
-            local windowSize = MainWindow.AbsoluteSize
+if DragPoint then
+    AddConnection(DragPoint.InputBegan, function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            local cctime2 = tick()
+            local timediff = cctime2 - lctime
             
-            local xPos = (screenSize.X - windowSize.X) / 2
-            local yPos = -55
-            
-            local tp0ss = UDim2.new(0, xPos, 0, yPos)
-            local cr0ss = MainWindow.Position
-            
-            local ds = math.sqrt(
-                math.pow(cr0ss.X.Offset - xPos, 2) +
-                math.pow(cr0ss.Y.Offset - yPos, 2)
-            )
-            
-            local mdss = math.sqrt(screenSize.X^2 + screenSize.Y^2)
-            local ndss = math.clamp(ds / mdss, 0, 1)
-            local time = 0.5 + (ndss * 1.5)
-            
-            local tinfo = TweenInfo.new(
-                time,
-                Enum.EasingStyle.Quint,
-                Enum.EasingDirection.Out
-            )
-            
-            local tween = vgs.TS:Create(MainWindow, tinfo, {Position = tp0ss})
-            tween:Play()
-            
-            lctime = 0
-        else
-            lctime = cctime2
+            if timediff <= dctime and minimized then
+                mouse1release()
+                local screenSize = workspace.CurrentCamera.ViewportSize
+                local windowSize = MainWindow.AbsoluteSize
+                
+                local xPos = (screenSize.X - windowSize.X) / 2
+                local yPos = -55
+                
+                local tposs = UDim2.new(0, xPos, 0, yPos)
+                local crposs = MainWindow.Position
+                
+                local ds = math.sqrt(
+                    math.pow(crposs.X.Offset - xPos, 2) + 
+                    math.pow(crposs.Y.Offset - yPos, 2)
+                )
+                
+                local mdss = math.sqrt(screenSize.X^2 + screenSize.Y^2)
+                local ndss = math.clamp(ds / mdss, 0, 1)
+                local ttime = 0.5 + (ndss * 1.5)
+                
+                local tinfo = TweenInfo.new(
+                    ttime,
+                    Enum.EasingStyle.Quint,
+                    Enum.EasingDirection.Out
+                )
+                
+                local tween = vgs.TS:Create(MainWindow, tinfo, {Position = tposs})
+                tween:Play()
+                
+                lctime = 0
+            else
+                lctime = cctime2
+            end
         end
-    end
-end)
+    end)
+end
 	
 	if WindowConfig.ShowIcon then
 		WindowName.Position = UDim2.new(0, 45, 0, -18)
