@@ -1126,6 +1126,15 @@ function OrionLib:MakeWindow(WindowConfig)
     DragPoint,
     WindowStuff
 }), "Main")
+MainWindow.Active = true
+
+if WindowStuff then
+    WindowStuff:GetPropertyChangedSignal("Visible"):Connect(function()
+        if resizebtt and WindowStuff then
+            resizebtt.Visible = WindowStuff.Visible
+        end
+    end)
+end
 
 if DragPoint then
     AddConnection(DragPoint.InputBegan, function(input)
