@@ -1148,7 +1148,7 @@ function OrionLib:MakeWindow(WindowConfig)
         Position = UDim2.new(0, 0, 1, -1)
     }), "Stroke")
 
-    local MainWindow = AddThemeObject(SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 0), {
+    local MainWindow = AddThemeObject(SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 10), {
         Parent = Orion,
         Position = UDim2.new(0.5, -255, 0.5, -140),
         Size = UDim2.new(0, 510, 0, 280),
