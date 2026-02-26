@@ -1,15 +1,12 @@
 local vgs = {
-    MS = (function() 
-        local player = game:GetService("Players").LocalPlayer
-        return player and player:GetMouse() or nil 
-    end)(),
-    VIM = game:GetService("VirtualInputManager"),
-    p = game:GetService("Players").LocalPlayer,
-    UIS = game:GetService("UserInputService"),
-    TS = game:GetService("TweenService"),
-    HS = game:GetService("HttpService"),
-    RS = game:GetService("RunService"),
-    ps = game:GetService("Players")
+    MS  =  game:GetService("Players").LocalPlayer:GetMouse(),
+	VIM =  game:GetService("VirtualInputManager"),
+    p   =  game:GetService("Players").LocalPlayer,
+    UIS =  game:GetService("UserInputService"),
+    TS  =  game:GetService("TweenService"),
+    HS  =  game:GetService("HttpService"),
+    RS  =  game:GetService("RunService"),
+    ps  =  game:GetService("Players")
 }
 
 local rate = 1 / 200 
@@ -742,29 +739,6 @@ function OrionLib:MakeWindow(WindowConfig)
         Size = UDim2.new(1, 0, 1, 0)
     })
     
-    -- Welcome Bar (Crimson Info Bar)
-    local WelcomeBar = AddThemeObject(SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 6), {
-        Size = UDim2.new(1, -20, 0, 30),
-        Position = UDim2.new(0, 10, 0, 60),
-        Name = "WelcomeBar",
-        Parent = WindowStuff
-    }), {
-        AddThemeObject(SetProps(MakeElement("Label", "Welcome to Crimson", 14), {
-            Size = UDim2.new(1, -30, 1, 0),
-            Position = UDim2.new(0, 10, 0, 0),
-            Font = Enum.Font.GothamBold,
-            TextXAlignment = Enum.TextXAlignment.Left,
-            Name = "Message"
-        }), "Text"),
-        AddThemeObject(SetProps(MakeElement("Image", "rbxassetid://7072706796"), {
-            Size = UDim2.new(0, 16, 0, 16),
-            Position = UDim2.new(1, -20, 0.5, 0),
-            AnchorPoint = Vector2.new(0, 0.5),
-            Name = "Icon"
-        }), "TextDark"),
-        AddThemeObject(MakeElement("Stroke"), "Stroke")
-    }), "Main")
-    
     local WindowStuff = AddThemeObject(SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 10), {
         Size = UDim2.new(0, 150, 1, -50),
         Position = UDim2.new(0, 0, 0, 50)
@@ -825,7 +799,6 @@ function OrionLib:MakeWindow(WindowConfig)
     AddConnection(vgs.p.CharacterAppearanceLoaded, function()
         ThumbImage.Image = "https://www.roblox.com/headshot-thumbnail/image?userId=".. vgs.p.UserId .."&width=420&height=420&format=png&t=".. tick()
     end)
-    
 	local Tabs = {}
 	
 	local SearchSystem = {
@@ -3359,7 +3332,7 @@ function OrionLib:MakeWindow(WindowConfig)
 					Size = UDim2.new(1, 0, 1, 0)
 				})
 
-				local BindBox = AddThemeObject(SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 4), {
+				local BindBox = AddThemeObject(SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 3), {
 					Size = UDim2.new(0, 24, 0, 24),
 					Position = UDim2.new(1, -12, 0.5, 0),
 					AnchorPoint = Vector2.new(1, 0.5)
@@ -3373,7 +3346,7 @@ function OrionLib:MakeWindow(WindowConfig)
 					}), "Text")
 				}), "Main")
 
-				local BindFrame = AddThemeObject(SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 5), {
+				local BindFrame = AddThemeObject(SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 3), {
 					Size = UDim2.new(1, 0, 0, 38),
 					Parent = ItemParent
 				}), {
@@ -3489,7 +3462,7 @@ function OrionLib:MakeWindow(WindowConfig)
 					ClearTextOnFocus = false
 				}), "Text")
 
-				local TextContainer = AddThemeObject(SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 4), {
+				local TextContainer = AddThemeObject(SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 3), {
 					Size = UDim2.new(0, 24, 0, 24),
 					Position = UDim2.new(1, -12, 0.5, 0),
 					AnchorPoint = Vector2.new(1, 0.5)
@@ -3499,7 +3472,7 @@ function OrionLib:MakeWindow(WindowConfig)
 				}), "Main")
 
 
-				local TextboxFrame = AddThemeObject(SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 5), {
+				local TextboxFrame = AddThemeObject(SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 3), {
 					Size = UDim2.new(1, 0, 0, 38),
 					Parent = ItemParent
 				}), {
@@ -3629,7 +3602,7 @@ function OrionLib:MakeWindow(WindowConfig)
 					AnchorPoint = Vector2.new(1, 0.5)
 				}), {AddThemeObject(MakeElement("Stroke"), "Stroke")})
 			
-				local ColorpickerFrame = AddThemeObject(SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 5), {
+				local ColorpickerFrame = AddThemeObject(SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 3), {
 					Size = UDim2.new(1, 0, 0, 38),
 					Parent = ItemParent
 				}), {
