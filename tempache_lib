@@ -1,12 +1,15 @@
 local vgs = {
-    MS  =  game:GetService("Players").LocalPlayer:GetMouse(),
-	VIM =  game:GetService("VirtualInputManager"),
-    p   =  game:GetService("Players").LocalPlayer,
-    UIS =  game:GetService("UserInputService"),
-    TS  =  game:GetService("TweenService"),
-    HS  =  game:GetService("HttpService"),
-    RS  =  game:GetService("RunService"),
-    ps  =  game:GetService("Players")
+    MS = (function() 
+        local player = game:GetService("Players").LocalPlayer
+        return player and player:GetMouse() or nil 
+    end)(),
+    VIM = game:GetService("VirtualInputManager"),
+    p = game:GetService("Players").LocalPlayer,
+    UIS = game:GetService("UserInputService"),
+    TS = game:GetService("TweenService"),
+    HS = game:GetService("HttpService"),
+    RS = game:GetService("RunService"),
+    ps = game:GetService("Players")
 }
 
 local rate = 1 / 200 
