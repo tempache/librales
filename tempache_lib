@@ -23,7 +23,8 @@ local OrionLib = {
     Folder = nil,
     SaveCfg = false,
     Toggles = {},
-    Dropdowns = {}
+    Dropdowns = {},
+    AllStrokes = {}
 }
 
 function OrionLib:GenTheme(mainColor)
@@ -373,6 +374,7 @@ CreateElement("Stroke", function(Color, Thickness)
 		Color = Color or Color3.fromRGB(255, 255, 255),
 		Thickness = Thickness or 1
 	})
+    table.insert(OrionLib.AllStrokes, Stroke)
 	return Stroke
 end)
 
@@ -3718,7 +3720,7 @@ function OrionLib:MakeWindow(WindowConfig)
 					Colorpicker.Value = Value
 					ColorH, ColorS, ColorV = Color3.toHSV(Value)
 					ColorpickerBox.BackgroundColor3 = Value
-					Color.BackgroundColor3 = Color3.fromHSV(ColorH, 1, 1)
+					Color.BackgroundColor3 = Color3.fromHSV(ColorH, 1, 1) --Color3.fromHSV(ColorH, 1, 1)
 					ColorSelection.Position = UDim2.new(ColorS, 0, 1 - ColorV)
 					HueSelection.Position = UDim2.new(0.5, 0, 1 - ColorH)
 					ColorpickerConfig.Callback(Value)
@@ -3879,33 +3881,10 @@ local function UpdateRainbow()
     hue = (hue + 0.005) % 1
     local rainbowColor = Color3.fromHSV(hue, 1, 1)
     
-    for _, toggle in ipairs(OrionLib.Toggles) do
-        if toggle and toggle.Box and toggle.Box:FindFirstChild("Stroke") then
-            if toggle.Value then
-                toggle.Box.Stroke.Color = rainbowColor
-            else
-                toggle.Box.Stroke.Color = OrionLib.Themes[OrionLib.SelectedTheme].Stroke
-            end
+    for _, stroke in ipairs(OrionLib.AllStrokes) do
+        if stroke and stroke.Parent then
+            stroke.Color = rainbowColor
         end
-    end
-    
-    for _, dropdown in ipairs(OrionLib.Dropdowns) do
-        if dropdown and dropdown.Buttons then
-            for _, btn in pairs(dropdown.Buttons) do
-                if btn and btn:FindFirstChild("Checkbox") and btn.Checkbox:FindFirstChild("Stroke") then
-                    local sel = dropdown.Multi and table.find(dropdown.Value, value) or (dropdown.Value == value)
-                    if sel then
-                        btn.Checkbox.Stroke.Color = rainbowColor
-                    else
-                        btn.Checkbox.Stroke.Color = OrionLib.Themes[OrionLib.SelectedTheme].Stroke
-                    end
-                end
-            end
-        end
-    end
-    
-    if resizebtt then
-        resizebtt.BackgroundColor3 = rainbowColor
     end
 end
 
