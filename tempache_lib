@@ -1109,7 +1109,7 @@ function OrionLib:MakeWindow(WindowConfig)
 		
 		local tbxatual = AddThemeObject(SearchBox, "Text")
 	
-		local SearchBar = AddThemeObject(SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 1, 10), {
+		local SearchBar = AddThemeObject(SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 0.02, 10), {
 			Parent = WindowStuff,
 			Size = UDim2.new(0, 130, 0, 32),
 			Position = UDim2.new(1, -10, 0, 10),
