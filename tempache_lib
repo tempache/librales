@@ -53,7 +53,7 @@ end
 
 OrionLib.Themes.Default = OrionLib:GenTheme(Color3.fromRGB(15, 5, 10))
 OrionLib.Themes.Default.Main = Color3.fromRGB(55, 55, 50)
-OrionLib.Themes.Default.Second = Color3.fromRGB(110, 110, 100)
+OrionLib.Themes.Default.Second = Color3.fromRGB(55, 55, 55)
 OrionLib.CurrentTheme = OrionLib.Themes.Default
 
 -- Rainbow Accents
